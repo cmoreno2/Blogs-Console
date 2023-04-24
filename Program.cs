@@ -17,6 +17,8 @@ try
         Console.WriteLine("Enter your selection:");
         Console.WriteLine("1) Display all blogs");
         Console.WriteLine("2) Add Blog");
+        Console.WriteLine("3) Create Post");
+        Console.WriteLine("4) Display Posts");
         Console.WriteLine("5) Delete Blog");
         Console.WriteLine("6) Edit Blog");
         Console.WriteLine("Enter q to quit");
@@ -46,6 +48,28 @@ try
                 //blog.BlogId = BlogId;
                 db.AddBlog(blog);
                 logger.Info("Blog added - {name}", blog.Name);
+            }
+        }
+                if (choice == "3")
+        {
+            // display blogs
+            Console.WriteLine("Chose blog to add a post to:");
+            var blog = GetBlog(db, logger);
+            //Add Post
+            Console.WriteLine("Enter Post Title");
+            var Title = Console.ReadLine();
+            Console.WriteLine("Enter Post Content");
+            var Content = Console.ReadLine();
+
+
+        }
+                if (choice == "4")
+        {
+            // display blogs
+            var query = db.Blogs.OrderBy(b => b.Name);
+            foreach (var item in query)
+            {
+                Console.WriteLine(item.Name);
             }
         }
         else if (choice == "5")
