@@ -56,11 +56,13 @@ try
             Console.WriteLine("Chose blog to add a post to:");
             var blog = GetBlog(db, logger);
             //Add Post
+            //Post title
             Console.WriteLine("Enter Post Title");
             var Title = Console.ReadLine();
+            //Post content (can be null)
             Console.WriteLine("Enter Post Content");
             var Content = Console.ReadLine(); 
-            //ToDO: find a way yo save the posts to the db
+            //ToDO: find a way to save the posts to the db having it connect to certain blogs
             
         }
                 if (choice == "4")
@@ -68,7 +70,7 @@ try
             // display blogs
             Console.WriteLine("Which blogs posts do you want to see:");
             var blog = GetBlog(db, logger);
-            //ToDo:Find a way to display posts based on the blog they picked
+            //ToDo:Find a way to display all posts or posts based on the blog they picked
         
         }
         else if (choice == "5")
