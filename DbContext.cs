@@ -12,6 +12,11 @@ public class BloggingContext : DbContext
         this.Blogs.Add(blog);
         this.SaveChanges();
     }
+        public void AddPost(Post Posts)
+    {
+        this.Posts.Add(Posts);
+        this.SaveChanges();
+    }
 
     public void DeleteBlog(Blog blog)
     {

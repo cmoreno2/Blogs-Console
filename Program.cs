@@ -62,7 +62,6 @@ try
             var Content = Console.ReadLine(); 
             //ToDO: find a way yo save the posts to the db
             
-
         }
                 if (choice == "4")
         {
