@@ -59,18 +59,17 @@ try
             Console.WriteLine("Enter Post Title");
             var Title = Console.ReadLine();
             Console.WriteLine("Enter Post Content");
-            var Content = Console.ReadLine();
-
+            var Content = Console.ReadLine(); 
+            //ToDO: find a way yo save the posts to the db
+            
 
         }
                 if (choice == "4")
         {
             // display blogs
-            var query = db.Blogs.OrderBy(b => b.Name);
-            foreach (var item in query)
-            {
-                Console.WriteLine(item.Name);
-            }
+            Console.WriteLine("Which blogs posts do you want to see:");
+            var blog = GetBlog(db, logger);
+            //ToDo:Find a way to display posts based on the blog they picked
         }
         else if (choice == "5")
         {
