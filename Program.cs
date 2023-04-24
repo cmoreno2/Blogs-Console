@@ -69,6 +69,7 @@ try
             Console.WriteLine("Which blogs posts do you want to see:");
             var blog = GetBlog(db, logger);
             //ToDo:Find a way to display posts based on the blog they picked
+        
         }
         else if (choice == "5")
         {
