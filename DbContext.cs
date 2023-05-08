@@ -12,9 +12,9 @@ public class BloggingContext : DbContext
         this.Blogs.Add(blog);
         this.SaveChanges();
     }
-        public void AddPost(Post Posts)
+        public void AddPost(Post post)
     {
-        this.Posts.Add(Posts);
+        this.Posts.Add(post);
         this.SaveChanges();
     }
 

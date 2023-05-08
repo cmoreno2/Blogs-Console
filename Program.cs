@@ -51,19 +51,32 @@ try
             }
         }
                 if (choice == "3")
-        {
+         {
+            db = new BloggingContext();
+            //create qurey to order the blogs 
+            var query = db.Blogs.OrderBy(b => b.BlogId);
+            //creating new post
+            var post = new Post();
             // display blogs
-            Console.WriteLine("Chose blog to add a post to:");
-            var blog = GetBlog(db, logger);
+            do
+            {
+                Console.WriteLine("Chose blog to add a post to:");
+                foreach (var item in query)
+                {
+                    Console.WriteLine($"{item.BlogId}.{item.Name} ");
+                }
+                post.BlogId = Convert.ToInt32(Console.ReadLine());
+                
+            } while (!query.Any(b => b.BlogId == post.BlogId));
             //Add Post
             //Post title
             Console.WriteLine("Enter Post Title");
-            var Title = Console.ReadLine();
+            post.Title = Console.ReadLine();
             //Post content (can be null)
             Console.WriteLine("Enter Post Content");
-            var Content = Console.ReadLine(); 
-            //ToDO: find a way to save the posts to the db having it connect to certain blogs
-            
+            post.Content = Console.ReadLine();
+            //saving post to db
+            db.AddPost(post);
         }
                 if (choice == "4")
         {
