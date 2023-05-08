@@ -63,28 +63,71 @@ try
                 Console.WriteLine("Chose blog to add a post to:");
                 foreach (var item in query)
                 {
-                    Console.WriteLine($"{item.BlogId}.{item.Name} ");
+                    Console.WriteLine($"{item.BlogId}): {item.Name} ");
                 }
                 post.BlogId = Convert.ToInt32(Console.ReadLine());
-                
+                logger.Info("Option {BlogID} selected\n", post.BlogId);
+                //Making sure user input is valid
+                if(!query.Any(b => b.BlogId == post.BlogId))
+                {
+                    logger.Error("Must Enter Valid Blog ID");
+                }
             } while (!query.Any(b => b.BlogId == post.BlogId));
             //Add Post
             //Post title
+            do{
+            //Post Title [Required]
             Console.WriteLine("Enter Post Title");
             post.Title = Console.ReadLine();
             //Post content (can be null)
             Console.WriteLine("Enter Post Content");
             post.Content = Console.ReadLine();
+            //Making sure post title in not null
+            if(string.IsNullOrEmpty(post.Title))
+            {
+                logger.Error("Must Enter Post Title");
+            }
+            }while(string.IsNullOrEmpty(post.Title));
             //saving post to db
             db.AddPost(post);
+            logger.Info("Post Added");
         }
                 if (choice == "4")
         {
+            db = new BloggingContext();
+            //create qurey to order the blogs 
+            var blogQuery = db.Blogs.OrderBy(b => b.BlogId);
+            int UserPostInput;
+            do
+            {
             // display blogs
             Console.WriteLine("Which blogs posts do you want to see:");
-            var blog = GetBlog(db, logger);
-            //ToDo:Find a way to display all posts or posts based on the blog they picked
-        
+            Console.WriteLine("0): Display all posts");
+                foreach (var item in blogQuery)
+                {
+                    Console.WriteLine($"{item.BlogId}): {item.Name}");
+                }
+                 UserPostInput = Convert.ToInt32(Console.ReadLine());
+                logger.Info("Option {BlogID} selected", UserPostInput);
+            } while (!blogQuery.Any(b => b.BlogId == UserPostInput || UserPostInput == 0));
+            //display post
+            if(UserPostInput == 0)
+            {
+            var postQuery = db.Posts.OrderBy(b => b.BlogId);
+            Console.WriteLine($"There are {postQuery.Count()} post(s)");
+            foreach (var item in postQuery)
+            {
+                Console.WriteLine($"Blog: {item.Blog.Name} \nPost Title: {item.Title} \nPost Content: {item.Content}\n");
+            }
+            }else
+            {
+            var postQuery = db.Posts.Where(p => p.BlogId == UserPostInput).OrderBy(p => p.Title);
+            Console.WriteLine($"There are {postQuery.Count()} post(s) for this blog");
+            foreach (var item in postQuery)
+            {
+                Console.WriteLine($"Blog: {item.Blog.Name} \nPost Title: {item.Title} \nPost Content: {item.Content}\n");
+            }
+            }
         }
         else if (choice == "5")
         {
